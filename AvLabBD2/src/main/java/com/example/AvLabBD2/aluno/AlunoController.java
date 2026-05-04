@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.AvLabBD2.curso.CursoService;
+
 @Controller
 @RequestMapping("/aluno")
 public class AlunoController {
@@ -15,11 +17,15 @@ public class AlunoController {
     @Autowired
     private AlunoService alunoService;
 
+    @Autowired
+    private CursoService cursoService;
+
     @GetMapping("/PaginaCadastroAluno")
     public String carregarPaginaCadastroAluno(Model model) {
         Aluno aluno = new Aluno();
         model.addAttribute("aluno", aluno);
-        return "cadastroAluno";
+        model.addAttribute("cursos", cursoService.listarTodos());
+        return "aluno/cadastroAluno";
     }
 
     @PostMapping("/CadastrarAluno")

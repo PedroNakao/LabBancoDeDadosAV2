@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Cursos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand navbar-dark bg-dark px-4 mb-4">
+        <span class="navbar-brand fw-bold">Oráculo Admin</span>
+    </nav>
+
+    <div class="container">
+        <h2 class="mb-4">Gerenciamento de cursos</h2>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header fw-bold" th:text="${curso.id != null} ? 'Editar Curso' : 'Novo Curso'"></div>
+            <div class="card-body">
+                <form th:action="@{/cadastraTipo/salvar}" th:object="${curso}" method="post">
+                    <input type="hidden" th:field="*{id}"/>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nome do Curso</label>
+                        <input type="text" th:field="*{nome}" class="form-control"
+                               placeholder="Ex: Análise e Desenvolvimento de Sistemas" required/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Descrição</label>
+                        <input type="text" th:field="*{descricao}" class="form-control"
+                               placeholder="Breve descrição do curso"/>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark px-4">Salvar</button>
+                    <a th:href="@{/cadastraTipo/area}" class="btn btn-outline-secondary ms-2">Cancelar</a>
+                </form>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="c : ${cursos}">
+                            <td th:text="${c.id}"></td>
+                            <td th:text="${c.nome}"></td>
+                            <td th:text="${c.descricao}"></td>
+                            <td>
+                                <a th:href="@{/cadastraTipo/editar/{id}(id=${c.id})}"
+                                   class="btn btn-warning btn-sm">Editar</a>
+                                <a th:href="@{/cadastraTipo/deletar/{id}(id=${c.id})}"
+                                   class="btn btn-danger btn-sm">Excluir</a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(cursos)}">
+                            <td colspan="4" class="text-center text-muted py-4">Nenhum curso cadastrado ainda.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

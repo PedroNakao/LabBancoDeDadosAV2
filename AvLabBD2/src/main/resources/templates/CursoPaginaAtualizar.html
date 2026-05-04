@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Atualizar Curso</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+<div>
+    <h1> Atualização de Curso</h1>
+
+
+    <form action="#" th:action="@{/curso/postAtualizarCurso}" th:object="${curso}" method="POST">
+        <input type="hidden" th:field="*{id}">
+        <input type="text" th:field = "*{nome}" class="form-control mb-4 col-4">
+        <input type="text" th:field = "*{descricao}" class="form-control mb-4 col-4">
+        <button type="submit"  class="btn btn-primary"> Atualizar Curso</button>
+    </form>
+    <hr>
+    <a th:href = "@{/curso}" class="btn btn-primary btn-sm mb-3" >Voltar para Inicio</a>
+</div>
+</body>
+</html>

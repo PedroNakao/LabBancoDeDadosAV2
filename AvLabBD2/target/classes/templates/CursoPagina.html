@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD participante</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <div align="center">
+        <h1> Lista de Cursos</h1>
+        <br>
+        <a th:href = "@{curso/getCadastroCurso}" class="btn btn-primary btn-sm mb-3" >Cadastrar novo Curso</a>
+
+        <table border="1" class="table table-striped table-responsive-md">
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Nome</th>
+                    <th>descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="curso: ${listaCurso}">
+                    <td th:text="${curso.id}"></td>
+                    <td th:text="${curso.nome}"></td>
+                    <td th:text="${curso.descricao}"></td>
+                    <td> <a th:href="@{/curso/getAtualizarCurso/{id}(id=${curso.id})}" class="btn btn-primary">Atualizar</a>
+                    <a th:href="@{/curso/getDeletarCurso/{id}(id=${curso.id})}" class="btn btn-danger">Deletar</a> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

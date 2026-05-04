@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Aluno</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+
+    <!-- Navbar com título da tela, igual ao protótipo -->
+    <nav class="navbar border-bottom mb-4">
+        <div class="container-fluid justify-content-center">
+            <span class="navbar-brand mb-0 h5">Cadastro Aluno</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card shadow-sm p-4">
+            <h2 class="mb-2">Cadastro de Candidato</h2>
+            <p class="text-muted mb-4">
+                Preencha o formulário abaixo para se cadastrar como candidato interessado
+                um dos nossos cursos oferecidos. Após o cadastro, você poderá receber informações
+                sobre os próximos períodos de vestibular e eventos da faculdade.
+            </p>
+
+            <form action="#" th:action="@{/aluno/CadastrarAluno}" th:object="${aluno}" method="post">
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <input type="text"
+                               th:field="*{nomeCompleto}"
+                               placeholder="Nome"
+                               class="form-control"/>
+                    </div>
+                    <div class="col-6">
+                        <input type="text"
+                               th:field="*{bairro}"
+                               placeholder="Bairro"
+                               class="form-control"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <input type="text"
+                               th:field="*{email}"
+                               placeholder="Email"
+                               class="form-control"/>
+                    </div>
+                    <div class="col-6">
+                        <select th:field="*{cursoEscolhido}" class="form-select">
+                            <option value="">Selecione um curso...</option>
+                            <option th:each="curso : ${cursos}"
+                                    th:value="${curso.nome}"
+                                    th:text="${curso.nome}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-check mb-4">
+                    <input type="checkbox"
+                           th:field="*{receberMensagem}"
+                           class="form-check-input"
+                           id="receberMensagemCheck"/>
+                    <label class="form-check-label" for="receberMensagemCheck">
+                        Concordo em receber mensagens da Faculdade sobre o vestibular e demais comunicados relacionados ao processo seletivo.
+                    </label>
+                </div>
+                <div class="d-flex justify-content-end gap-2">
+                    <a th:href="@{/paginaInicial}" class="btn btn-secondary px-4">voltar</a>
+                    <button type="submit" class="btn btn-dark px-4">cadastrar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

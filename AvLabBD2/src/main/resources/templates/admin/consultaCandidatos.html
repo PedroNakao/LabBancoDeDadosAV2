@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta de Candidatos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand navbar-admin px-4 mb-4">
+        <span class="navbar-brand fw-bold">Oráculo Admin</span>
+    </nav>
+    <div class="container">
+        <h2 class="mb-4">Consulta de Candidatos</h2>
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <div class="row g-2">
+                    <div class="col-md-4">
+                        <form th:action="@{/consultaCandidatos/porCurso}" method="get" class="d-flex gap-2">
+                            <input type="text" name="curso" class="form-control" placeholder="Buscar por curso..."/>
+                            <button type="submit" class="btn btn-dark">Filtrar</button>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <form th:action="@{/consultaCandidatos/porBairro}" method="get" class="d-flex gap-2">
+                            <input type="text" name="bairro" class="form-control" placeholder="Buscar por bairro..."/>
+                            <button type="submit" class="btn btn-dark">Filtrar</button>
+                        </form>
+                    </div>
+                    <div class="col-md-4 d-flex gap-2">
+                        <a th:href="@{/consultaCandidatos/primeiros10}" class="btn btn-outline-primary w-100">10 Primeiros</a>
+                        <a th:href="@{/consultaCandidatos/ultimos10}" class="btn btn-outline-secondary w-100">10 Últimos</a>
+                        <a th:href="@{/consultaCandidatos/area}" class="btn btn-outline-danger w-100">Ver todos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p th:if="${filtro}" class="text-muted">
+            Mostrando resultados para: <span class="badge badge-filtro" th:text="${filtro}"></span>
+        </p>
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nome Completo</th>
+                            <th>E-mail</th>
+                            <th>Bairro</th>
+                            <th>Curso</th>
+                            <th>Receber Mensagem</th>
+                            <th>Cadastrado em</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="aluno : ${alunos}">
+                            <td th:text="${aluno.id}"></td>
+                            <td th:text="${aluno.nomeCompleto}"></td>
+                            <td th:text="${aluno.email}"></td>
+                            <td th:text="${aluno.bairro}"></td>
+                            <td th:text="${aluno.cursoEscolhido}"></td>
+                            <td><input type="checkbox" th:checked="${aluno.receberMensagem}" disabled></td>
+                            <td th:text="${aluno.dataCadastrado}"></td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(alunos)}">
+                            <td colspan="7" class="text-center text-muted py-4">Nenhum candidato encontrado.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <p class="text-muted mt-3" th:text="'Total: ' + ${#lists.size(alunos)} + ' candidato(s)'"></p>
+    </div>
+
+</body>
+</html>
